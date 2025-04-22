@@ -19,6 +19,7 @@ html, body {
   transform: translateX(-50%);
   width: 360px;
   z-index: 20;
+  user-select: none;
 }
 
 /* Game container */
@@ -49,6 +50,7 @@ html, body {
   display: block;
   margin-bottom: 8px;
   font-size: 16px;
+  user-select: none;
 }
 
 .hud-container .hud-block .label {
