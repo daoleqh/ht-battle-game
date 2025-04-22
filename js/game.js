@@ -20,7 +20,8 @@ const sounds = {
   touchwall: new Audio('audio/touchwall.mp3')
 };
 
-
+let soundEnabled = true;
+let animationFrameId = null;
 let stage = 1,
     enemies = [], exps = [], playerBullets = [], bossBullets = [],
     intervals = [], gameEnded = false,
@@ -41,6 +42,11 @@ document.addEventListener('mouseup',   stopFiring);
 restartBtn.addEventListener('click', init);
 gameContainer.addEventListener('contextmenu', e => e.preventDefault());
 window.addEventListener('blur', () => { stopFiring(); Object.keys(keys).forEach(k => keys[k] = false); });
+const soundBtn = document.getElementById('sound-btn');
+soundBtn.onclick = () => {
+  soundEnabled = !soundEnabled;
+  soundBtn.textContent = soundEnabled ? '🔊' : '🔇';
+};
 
 // Khởi tạo game
 init();
@@ -61,14 +67,13 @@ function init() {
   setupWalls();
   setupWallHPBar();
   createPlayer();
-  styleRestartButton();
 
   intervals.push(setInterval(updateTimer, 1000));
   enemySpawnInterval = setInterval(spawnEnemy, 2000);
   expSpawnInterval   = setInterval(spawnExp,   4000);
   intervals.push(enemySpawnInterval, expSpawnInterval);
-
-  requestAnimationFrame(updateGame);
+  if (animationFrameId) cancelAnimationFrame(animationFrameId);
+  animationFrameId = requestAnimationFrame(updateGame);
 }
 
 // Xử lý phím
@@ -177,21 +182,6 @@ function createPlayer(){
   gameContainer.appendChild(player);
 }
 
-// Định dạng nút Restart
-function styleRestartButton(){
-  restartBtn.style.display    = 'block';
-  restartBtn.style.position   = 'absolute';
-  restartBtn.style.top        = 'calc(2 * 1em + 24px)';
-  restartBtn.style.right      = '0';
-  restartBtn.style.padding    = '4px 8px';
-  restartBtn.style.background = 'transparent';
-  restartBtn.style.color      = '#0ff';
-  restartBtn.style.border     = '2px solid #0ff';
-  restartBtn.style.borderRadius = '4px';
-  restartBtn.style.fontSize     = '16px';
-  restartBtn.style.cursor       = 'pointer';
-}
-
 // Cập nhật đồng hồ, cảnh báo nguy hiểm và xử lý spawn boss cuối
 function updateTimer() {
   if (gameEnded) return;
@@ -199,8 +189,10 @@ function updateTimer() {
   // Khi chỉ còn 5 giây:
   if (gameTime === 5) {
     const warning = document.createElement('div');
-    sounds.warning.currentTime = 0;
-    sounds.warning.play();
+    if (soundEnabled) {
+      sounds.warning.currentTime = 0;
+      sounds.warning.play();
+    }
     Object.assign(warning.style, {
       position: 'absolute',
       top: '50%',
@@ -248,7 +240,7 @@ function updateGame(){
   moveEnemies();
   checkExp();
   checkVictory();
-  requestAnimationFrame(updateGame);
+  animationFrameId = requestAnimationFrame(updateGame);
 }
 
 // Tạo ra kẻ địch
@@ -392,7 +384,10 @@ function shootPlayerBullet(){
     backgroundSize:'contain', backgroundRepeat:'no-repeat', backgroundPosition:'center'
   });
   playerBullets.push(b);
-  sounds.shoot.currentTime = 0; sounds.shoot.play();
+  if (soundEnabled) {
+    sounds.shoot.currentTime = 0;
+    sounds.shoot.play();
+  }  
   gameContainer.appendChild(b);
 }
 
@@ -476,8 +471,11 @@ function moveEnemies(){
     if (parseFloat(e.style.left) < 24){
       updateWallHP(e.classList.contains('boss') ? 20 : 10);
       shakeScreen();
-      sounds.touchwall.currentTime = 0;
-      sounds.touchwall.play();
+      if (soundEnabled) {
+        sounds.touchwall.currentTime = 0;
+        sounds.touchwall.play();
+      }
+      
       e.remove(); enemies.splice(i,1);
     }    
   }
@@ -493,8 +491,11 @@ function checkExp(){
       const fill = player.querySelector('.exp-bar-fill');
       if (progress >= 10 && level < 5){
         level++;
-        sounds.levelup.currentTime = 0;
-        sounds.levelup.play();
+        if (soundEnabled) {
+          sounds.levelup.currentTime = 0;
+          sounds.levelup.play();
+        }
+        
         progress = 0;
         fill.style.height = '0%';
       } else {
@@ -599,7 +600,12 @@ function showExplosion(l,t,big=false){
     boxShadow: big?'0 0 40px 20px red':'0 0 10px 5px orange',
     animation:'explode 0.4s ease-out', zIndex:99
   });
-  if (!big) { sounds.explode.currentTime = 0; sounds.explode.play(); }
+  if (!big) {
+    if (soundEnabled) {
+      sounds.explode.currentTime = 0;
+      sounds.explode.play();
+    }
+  }
   gameContainer.appendChild(fx);
   setTimeout(()=>fx.remove(),500);
 }
@@ -658,9 +664,14 @@ function triggerVictoryUI(type){
     resultImg.style.display = 'block';
   }
   if (type === 'victory') {
-    sounds.victory.play();
+    if (soundEnabled) {
+      sounds.victory.play();
+    }
+    
   } else {
-    sounds.defeat.play();
+    if (soundEnabled) {
+      sounds.defeat.play();
+    }
   }
 }
 
