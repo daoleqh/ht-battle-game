@@ -7,6 +7,7 @@ Game Guide
 📜 Introduction
 ---------------
 Nass War: HT Challenge is a fast-paced, browser-based mini-game inspired by Top War: Battle Game. (Heavy Trooper)
+
 Take command of your elite unit and protect your base against waves of powerful enemies. Level up, survive multiple stages, and face off against fearsome bosses in the ultimate defense challenge!
 
 🎯 Objective
