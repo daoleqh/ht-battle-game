@@ -59,20 +59,42 @@ html, body {
 
 /* Restart button */
 #restart-btn {
+  display: block;
   position: absolute;
-  top: calc(2 * 1em + 16px);
+  top: calc(2 * 1em + 20px);
   right: 0;
   padding: 4px 8px;
   background: transparent;
-  color: #0f0;
-  border: 1px solid #0f0;
+  color: #0ff;
+  border: 2px solid #0ff;
   border-radius: 4px;
-  font-size: 14px;
+  font-size: 16px;
   cursor: pointer;
   transition: background 0.2s, color 0.2s;
 }
+
 #restart-btn:hover {
-  background: rgba(0,255,0,0.2);
+  background: rgba(0,255,255,0.2);
+  color: #fff;
+}
+
+
+#sound-btn {
+  display: block;
+  position: absolute;
+  top: calc(2 * 1em + 60px);
+  right: 0;
+  padding: 4px 8px;
+  background: transparent;
+  color: #0ff;
+  border: 2px solid #0ff;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+#sound-btn:hover {
+  background: rgba(0,255,255,0.2);
   color: #fff;
 }
 
