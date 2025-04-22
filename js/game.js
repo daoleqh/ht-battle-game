@@ -329,7 +329,7 @@ function spawnExp() {
     height: `${size}px`,
     left: `${60 + Math.random() * 340}px`,
     top: `${130 + Math.random() * 606}px`,
-    backgroundImage: `url'img/${isBigExp ? 'exp2.png' : 'exp.png'}`,
+    backgroundImage: `url('img/${isBigExp ? 'exp2.png' : 'exp.png'}')`,
     backgroundSize: 'contain',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center'
@@ -588,7 +588,7 @@ function checkVictory() {
 function showNextButton() {
   const btn = document.createElement('img');
   btn.id = 'nextchap';
-  btn.src = 'next.png';
+  btn.src = 'img/next.png';
   btn.style.cssText = 'position:absolute;left:50%;top:70%;transform:translate(-50%,-50%);cursor:pointer;z-index:20;';
   gameContainer.appendChild(btn);
   const stage2Label = document.createElement('div');
@@ -784,7 +784,7 @@ function triggerVictoryUI(type) {
       </div>`;
     gameContainer.appendChild(msg);
   } else {
-    resultImg.src = type === 'victory' ? 'victory.png' : 'defeat.png';
+    resultImg.src = type === 'victory' ? 'img/victory.png' : 'img/defeat.png';
     resultImg.style.display = 'block';
     restartBtn.style.display = 'block';
   }
