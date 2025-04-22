@@ -1,6 +1,5 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -10,24 +9,32 @@
   <link rel="icon" type="image/png" href="img/icon.png">
 </head>
 <body>
+  <!-- Logo -->
   <img src="img/nasswar.png" alt="Nass War: HT Challenge" id="title-img">
 
-<div id="game-container">
+  <div id="game-container">
+    <!-- HUD -->
+    <div class="hud-container">
+      <div id="scoreboard" class="hud-block">
+        <span class="label">Enemies Defeated:</span>
+        <span id="score">0</span>
+      </div>
+      <div id="timer" class="hud-block">
+        <span class="label">Time Left:</span>
+        <span id="time-left">90s</span>
+      </div>
+      <button id="restart-btn" title="Restart">↻</button>
+    </div>
 
-<div style="position:absolute;top:10px;right:10px;z-index:15;text-align:right;font-family:'Orbitron',sans-serif;">
-  <div id="scoreboard" class="hud-block" style="font-size:15px;color:#00ff66;text-shadow:0 0 4px #0f0, 0 0 8px #0f0, 0 0 12px #0f0;border:1px solid rgba(0,255,0,0.3);user-select:none;" style="font-size:18px;color:#00ffcc;text-shadow:0 0 6px #0ff, 0 0 8px #0ff;">Enemies Defeated: <span id="score">0</span></div>
-  <div id="timer" class="hud-block" style="font-size:15px;color:#00ffff;text-shadow:0 0 4px #0ff, 0 0 8px #0ff, 0 0 12px #0ff;border:1px solid rgba(0,255,255,0.3);user-select:none;" style="font-size:18px;color:#00ffcc;text-shadow:0 0 6px #0ff, 0 0 8px #0ff;">Time Left: <span id="time-left">90</span>s</div>
-</div>
-<div userSelect="none"; style="user-select:none;position:absolute;bottom:4px;left:28px;font-size:14px;font-family:'Orbitron',sans-serif;color:#888;">© Nass</div>
-<div userSelect="none"; style="user-select:none;position:absolute;bottom:4px;right:8px;font-size:14px;font-family:'Orbitron',sans-serif;color:#888;">Discord: nass.le</div>
-
+    <!-- Walls & Game Elements -->
     <div id="walls"></div>
-        <img id="result-img" src="" alt="result">
+    <img id="result-img" src="" alt="result">
+
+    <!-- Credits -->
+    <div class="footer-left">© Nass.</div>
+    <div class="footer-right">Discord: nass.le</div>
   </div>
 
-  <button id="restart-btn">Restart</button>
-  
-  
   <script src="js/game.js"></script>
 </body>
 </html>
