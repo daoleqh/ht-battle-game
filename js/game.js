@@ -522,7 +522,7 @@ function showNextButton(){
   btn.id  = 'nextchap';
   btn.src = 'img/next.png';
   Object.assign(btn.style,{
-    position:'absolute', left:'50%', top:'70%',
+    position:'absolute', left:'50%', top:'72%',
     transform:'translate(-50%,-50%)', cursor:'pointer', zIndex:20
   });
   gameContainer.appendChild(btn);
@@ -530,7 +530,7 @@ function showNextButton(){
   lbl2.id = 'stage2-label';
   lbl2.innerText = 'STAGE 2';
   Object.assign(lbl2.style,{
-    position:'absolute', top:'78%', left:'50%',
+    position:'absolute', top:'80%', left:'50%',
     transform:'translateX(-50%)', fontSize:'24px',
     fontFamily:"'Orbitron',sans-serif", fontWeight:'900',
     color:'#00ffff', textShadow:'0 0 6px #0ff',
