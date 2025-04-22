@@ -17,7 +17,7 @@ Defend your wall against incoming enemies. Eliminate as many as possible, earn e
 🕹️ How to Play
 ---------------
 - Move: Use W A S D or Arrow Keys
-- Shoot: Press Spacebar or Left Click
+- Shoot: Click/Hold Left Click
 - Auto-attack with every keypress or click
 - Protect the wall at the left — if it's destroyed, you lose
 
