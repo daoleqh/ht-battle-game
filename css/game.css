@@ -1,0 +1,136 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+    h1 {
+  background: rgba(0, 0, 0, 0.6);
+  padding: 10px 20px;
+  border-radius: 10px;
+  display: inline-block;
+  box-shadow: 0 0 10px #000;
+}
+
+.hud-block {
+  background: rgba(0, 0, 0, 0.5);
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 8px;
+  margin: 4px;
+  font-weight: bold;
+  box-shadow: 0 0 6px #000;
+}
+
+#title-img {
+  position: absolute;
+  top: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 360px;
+  height: auto;
+  z-index: 15;
+}
+
+body {
+  font-family: sans-serif;
+  background: url("../img/bg.png") no-repeat center center fixed;
+  background-size: cover;
+  color: #fff;
+  text-align: center;
+}
+    
+
+#game-container {
+  position: relative;
+  width: 1200px;
+  height: 800px;
+  background-image: url("../img/background.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin: 50px auto 20px auto;
+  overflow: hidden;
+  border: 2px solid #fff;
+}
+
+
+    .enemy, .exp, .boss, .bullet, .player-unit, .wall-segment, #gate {
+      position: absolute;
+      background-size: cover;
+    }
+    .enemy { background-image: url("../img/enemy.png"); width: 64px; height: 64px; }
+    .boss { background-image: url("../img/boss.png"); width: 128px; height: 128px; }
+    .exp { background-image: url("../img/exp.png"); width: 64px; height: 64px; }
+    .player-unit { width: 64px; height: 64px; z-index: 4; }
+    .level-tag {
+  user-select: none;
+  right: -10px;
+  top: -10px;
+  left: auto;
+  transform: none;
+      position: absolute;
+      top: -22px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 14px;
+      background: #222;
+      color: cyan;
+      padding: 2px 6px;
+      border-radius: 6px;
+      box-shadow: 0 0 5px cyan;
+    }
+    .bullet {
+      width: 32px;
+      height: 24px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      z-index: 5;
+    }
+    .wall-segment {
+      background-image: url("../img/wall.png");
+      width: 24px;
+      height: 64px;
+      z-index: 3;
+    }
+    #gate {
+      background-image: url("../img/gate.png");
+      width: 24px;
+      height: 120px;
+      z-index: 3;
+    }
+    #result-img {
+      display: none;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 360px;
+      z-index: 20;
+    }
+    #restart-btn {
+      display: none;
+      position: absolute;
+      top: 10px; right: 10px;
+      padding: 10px 20px;
+      background: #0a0;
+      color: white;
+      border: none;
+      cursor: pointer;
+      z-index: 20;
+    }
+    #progress-bar {
+      width: 200px; height: 16px;
+      background: #555;
+      margin: 10px auto;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    #progress-fill {
+      width: 0%; height: 100%;
+      background: #0f0;
+      transition: width 0.3s ease;
+    }
+    #scoreboard, #timer {
+      margin-top: 8px;
+    }
+    @keyframes explode {
+      0% { transform: scale(0.5); opacity: 1; }
+      100% { transform: scale(2); opacity: 0; }
+    }
