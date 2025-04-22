@@ -172,7 +172,7 @@ function createPlayer() {
     position: 'absolute',
     left: '200px',
     top: '300px',
-    backgroundImage: `url('img/img/soldier_lv${level}.png')`
+    backgroundImage: `url('img/soldier_lv${level}.png')`
   });
 
   const tag = document.createElement('div');
@@ -329,7 +329,7 @@ function spawnExp() {
     height: `${size}px`,
     left: `${60 + Math.random() * 340}px`,
     top: `${130 + Math.random() * 606}px`,
-    backgroundImage: `url('img/${isBigExp ? 'exp2.png' : 'exp.png'})`,
+    backgroundImage: `url'img/${isBigExp ? 'exp2.png' : 'exp.png'}`,
     backgroundSize: 'contain',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center'
