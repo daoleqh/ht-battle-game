@@ -9,6 +9,17 @@ const resultImg     = document.getElementById('result-img');
 const restartBtn    = document.getElementById('restart-btn');
 const scoreDisplay  = document.getElementById('score');
 const timerDisplay  = document.getElementById('time-left');
+// Âm thanh
+const sounds = {
+  shoot: new Audio('audio/shoot.mp3'),
+  explode: new Audio('audio/explode.mp3'),
+  victory: new Audio('audio/victory.mp3'),
+  defeat: new Audio('audio/defeat.mp3'),
+  warning: new Audio('audio/warning.mp3'),
+  levelup: new Audio('audio/levelup.mp3'),
+  touchwall: new Audio('audio/touchwall.mp3')
+};
+
 
 let stage = 1,
     enemies = [], exps = [], playerBullets = [], bossBullets = [],
@@ -188,6 +199,8 @@ function updateTimer() {
   // Khi chỉ còn 5 giây:
   if (gameTime === 5) {
     const warning = document.createElement('div');
+    sounds.warning.currentTime = 0;
+    sounds.warning.play();
     Object.assign(warning.style, {
       position: 'absolute',
       top: '50%',
@@ -379,6 +392,7 @@ function shootPlayerBullet(){
     backgroundSize:'contain', backgroundRepeat:'no-repeat', backgroundPosition:'center'
   });
   playerBullets.push(b);
+  sounds.shoot.currentTime = 0; sounds.shoot.play();
   gameContainer.appendChild(b);
 }
 
@@ -460,10 +474,12 @@ function moveEnemies(){
     const sp = e.classList.contains('boss') ? speedBoss : speedEnemy;
     e.style.left = `${parseFloat(e.style.left)-sp}px`;
     if (parseFloat(e.style.left) < 24){
-      updateWallHP(e.classList.contains('boss')?20:10);
+      updateWallHP(e.classList.contains('boss') ? 20 : 10);
       shakeScreen();
+      sounds.touchwall.currentTime = 0;
+      sounds.touchwall.play();
       e.remove(); enemies.splice(i,1);
-    }
+    }    
   }
 }
 
@@ -476,7 +492,11 @@ function checkExp(){
       progress += parseInt(a.dataset.value||1);
       const fill = player.querySelector('.exp-bar-fill');
       if (progress >= 10 && level < 5){
-        level++; progress = 0; fill.style.height = '0%';
+        level++;
+        sounds.levelup.currentTime = 0;
+        sounds.levelup.play();
+        progress = 0;
+        fill.style.height = '0%';
       } else {
         fill.style.height = `${progress*10}%`;
       }
@@ -579,6 +599,7 @@ function showExplosion(l,t,big=false){
     boxShadow: big?'0 0 40px 20px red':'0 0 10px 5px orange',
     animation:'explode 0.4s ease-out', zIndex:99
   });
+  if (!big) { sounds.explode.currentTime = 0; sounds.explode.play(); }
   gameContainer.appendChild(fx);
   setTimeout(()=>fx.remove(),500);
 }
@@ -635,6 +656,11 @@ function triggerVictoryUI(type){
   } else {
     resultImg.src = type==='victory' ? 'img/victory.png' : 'img/defeat.png';
     resultImg.style.display = 'block';
+  }
+  if (type === 'victory') {
+    sounds.victory.play();
+  } else {
+    sounds.defeat.play();
   }
 }
 
