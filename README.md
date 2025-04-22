@@ -1,6 +1,7 @@
 🎮 Nass War: HT Challenge (by Nass)
 =========================
 Discord: nass.le
+
 Game Guide
 
 📜 Introduction
