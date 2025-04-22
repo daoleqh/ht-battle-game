@@ -200,6 +200,7 @@ function updateTimer() {
       background: 'rgba(0,0,0,0.6)',
       padding: '10px 20px',
       borderRadius: '8px',
+      userSelect:'none',
       zIndex: 100
     });
     warning.innerText = 'Commander, we are about to face a very strong enemy, be careful!';
