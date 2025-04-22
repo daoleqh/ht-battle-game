@@ -420,7 +420,7 @@ function shootPlayerBullet() {
     top: `${parseInt(player.style.top) + 26}px`,
     width: '32px',
     height: '24px',
-    backgroundImage: `url('img/img/bullet_lv${level}.png')`,
+    backgroundImage: `url('img/bullet_lv${level}.png')`,
     backgroundSize: 'contain',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center'
