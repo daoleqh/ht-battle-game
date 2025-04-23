@@ -39,7 +39,14 @@ document.addEventListener('keydown', onKeyDown);
 document.addEventListener('keyup',   onKeyUp);
 document.addEventListener('mousedown', startFiring);
 document.addEventListener('mouseup',   stopFiring);
-restartBtn.addEventListener('click', init);
+restartBtn.addEventListener('click', () => {
+  // Chỉ reset về stage 1 nếu đã thắng stage 2
+  const congrats = document.getElementById('congrats-message');
+  if (stage === 2 && congrats) {
+    stage = 1;
+  }
+  init();
+});
 gameContainer.addEventListener('contextmenu', e => e.preventDefault());
 window.addEventListener('blur', () => { stopFiring(); Object.keys(keys).forEach(k => keys[k] = false); });
 const soundBtn = document.getElementById('sound-btn');
@@ -54,14 +61,18 @@ function init() {
   intervals.forEach(id => clearInterval(id));
   intervals = [];
   clearAll();
+  document.querySelector('#congrats-message')?.remove();
   document.getElementById('stage-label')?.remove();
   document.getElementById('wall-health-container')?.remove();
   document.getElementById('nextchap')?.remove();
   resultImg.style.display = 'none';
 
-  gameEnded = false; gameTime = 90; spawnAllowed = true;
+  gameEnded = false;gameTime = 90; spawnAllowed = true;
   score = progress = 0; level = 1; wallHealth = 100; finalBossSpawned = false;
   scoreDisplay.textContent = '0'; timerDisplay.textContent = '90s';
+  if (stage === 2 && gameEnded) {
+    stage = 1;
+  }  
 
   setupStage();
   setupWalls();
@@ -205,6 +216,7 @@ function updateTimer() {
       background: 'rgba(0,0,0,0.6)',
       padding: '10px 20px',
       borderRadius: '8px',
+      textAlign: 'center',
       userSelect:'none',
       zIndex: 100
     });
@@ -635,12 +647,13 @@ function endGame(type){
   gameEnded = true;
   intervals.forEach(id=>clearInterval(id));
   if (type==='victory') triggerVictoryUI('victory');
-  else                            triggerVictoryUI('defeat');
+  else triggerVictoryUI('defeat');
 }
 
 function triggerVictoryUI(type){
   if (type==='victory' && stage===2){
     const msg = document.createElement('div');
+    msg.id = 'congrats-message';
     Object.assign(msg.style,{
       position:'absolute', left:'50%', top:'60%',
       transform:'translate(-50%,-50%)',
