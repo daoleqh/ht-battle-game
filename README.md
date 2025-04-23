@@ -18,14 +18,14 @@ Defend your wall against incoming enemies. Eliminate as many as possible, earn e
 ---------------
 - Move: Use W A S D or Arrow Keys
 - Shoot: Click/Hold Left Click
-- Auto-attack with every keypress or click
 - Protect the wall at the left — if it's destroyed, you lose
+- Don't touch the enemy
 
 💡 Features
 -----------
 
 🧍 Player Unit
-- Starts as Soldier Lv1
+- Starts as HT Lv1
 - Gain EXP to level up (max Lv5)
 - Higher level = stronger bullets & new appearance
 
@@ -49,8 +49,7 @@ Defend your wall against incoming enemies. Eliminate as many as possible, earn e
 - Wall shakes on hit
 
 💥 EXP System
-- exp.png: +1 EXP
-- exp2.png: +2 EXP
+- +1 EXP or +2 EXP
 - Spawns randomly during game
 
 🧨 Hit Effects
@@ -61,6 +60,7 @@ Defend your wall against incoming enemies. Eliminate as many as possible, earn e
 --------
 - Stage 1: Regular enemies and bosses
 - Stage 2: Stronger enemies and new bosses
+- Press reset to refresh the stage
 
 🧪 Tips
 -------
@@ -68,6 +68,10 @@ Defend your wall against incoming enemies. Eliminate as many as possible, earn e
 - Collect +2 EXP for faster leveling
 - Avoid boss bullets at all costs
 
+🔊 Sounds
+-------
+- Vivid sounds: shooting, collision, leveling up, warning,..
+- Click the volume button to turn the sound on/off
 ---
 
 Good luck, Commander! Victory awaits in Nass War: HT Challenge!
