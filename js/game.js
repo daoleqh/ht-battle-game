@@ -250,6 +250,7 @@ function updateGame(){
   movePlayerBullets();
   moveBossBullets();
   moveEnemies();
+  checkPlayerEnemyCollision();
   checkExp();
   checkVictory();
   animationFrameId = requestAnimationFrame(updateGame);
@@ -526,6 +527,16 @@ function checkVictory(){
   } else if (finalBossSpawned && enemies.length===0){
     endGame('victory');
     if (stage===1) showNextButton();
+  }
+}
+
+// kiểm tra va chạm dẫn đến thua
+function checkPlayerEnemyCollision() {
+  for (let i = 0; i < enemies.length; i++) {
+    if (isColliding(player, enemies[i])) {
+      endGame('defeat');
+      return;
+    }
   }
 }
 
