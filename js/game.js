@@ -89,12 +89,23 @@ function init() {
 
 // Xử lý phím
 function onKeyDown(e){
-  if (['w','a','s','d','ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.key))
+  if (['w','a','s','d','ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.key)) {
     keys[e.key] = true;
+  }
+
+  if (e.code === 'Space') {
+    startFiring();
+  }
 }
+
 function onKeyUp(e){
-  if (['w','a','s','d','ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.key))
+  if (['w','a','s','d','ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.key)) {
     keys[e.key] = false;
+  }
+
+  if (e.code === 'Space') {
+    stopFiring();
+  }
 }
 
 // Bắn liên tục khi giữ chuột
@@ -103,6 +114,7 @@ function startFiring(){
   shootPlayerBullet();
   fireIntervalId = setInterval(shootPlayerBullet, FIRE_DELAY);
 }
+
 function stopFiring(){
   clearInterval(fireIntervalId);
   fireIntervalId = null;
