@@ -1,3 +1,19 @@
+function isMobile() {
+  return /Mobi|Android|iPhone/i.test(navigator.userAgent);
+}
+
+function ensureFullscreen() {
+  if (!isMobile()) return;
+  const el = document.documentElement;
+  if (!document.fullscreenElement) {
+    if (el.requestFullscreen) el.requestFullscreen();
+    else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+  }
+}
+
+window.addEventListener("click", ensureFullscreen);
+window.addEventListener("touchstart", ensureFullscreen);
+
 // Ngăn Space/Arrow keys cuộn trang
 window.addEventListener('keydown', e => {
   if (e.code === 'Space' || e.code.startsWith('Arrow')) e.preventDefault();
@@ -37,10 +53,13 @@ let assetEnemy, assetBoss1, assetBoss2, assetFinalBoss, speedEnemy, speedBoss;
 // Sự kiện chung
 document.addEventListener('keydown', onKeyDown);
 document.addEventListener('keyup',   onKeyUp);
-document.addEventListener('mousedown', startFiring);
+// 🔒 Xóa auto-bắn chuột
+// document.addEventListener('mousedown', startFiring);
 document.addEventListener('mouseup',   stopFiring);
+// 🔒 Xóa auto-bắn cảm ứng
+// document.addEventListener('touchstart', startFiring);
+document.addEventListener('touchend', stopFiring);
 restartBtn.addEventListener('click', () => {
-  // Chỉ reset về stage 1 nếu đã thắng stage 2
   const congrats = document.getElementById('congrats-message');
   if (stage === 2 && congrats) {
     stage = 1;
@@ -55,8 +74,7 @@ soundBtn.onclick = () => {
   soundBtn.textContent = soundEnabled ? '🔊' : '🔇';
 };
 
-// Khởi tạo game
-init();
+
 function init() {
   intervals.forEach(id => clearInterval(id));
   intervals = [];
@@ -94,7 +112,7 @@ function onKeyDown(e){
   }
 
   if (e.code === 'Space') {
-    startFiring();
+    if (firing) startFiring();
   }
 }
 
@@ -544,6 +562,9 @@ function checkVictory(){
 
 // kiểm tra va chạm dẫn đến thua
 function checkPlayerEnemyCollision() {
+  if (!player || !player.getBoundingClientRect) return;
+  const playerRect = player.getBoundingClientRect();
+  if (!playerRect.width || !playerRect.height) return;
   for (let i = 0; i < enemies.length; i++) {
     if (isColliding(player, enemies[i])) {
       endGame('defeat');
@@ -556,9 +577,13 @@ function showNextButton(){
   const btn = document.createElement('img');
   btn.id  = 'nextchap';
   btn.src = 'img/next.png';
-  Object.assign(btn.style,{
-    position:'absolute', left:'50%', top:'73%',
-    transform:'translate(-50%,-50%)', cursor:'pointer', zIndex:20
+  Object.assign(btn.style, {
+    position: 'absolute',
+    left: '50%',
+    top: '65%',
+    transform: 'translate(-50%,-50%)',
+    cursor: 'pointer',
+    zIndex: 35
   });
   gameContainer.appendChild(btn);
   const lbl2 = document.createElement('div');
@@ -589,13 +614,18 @@ function showNextButton(){
     document.getElementById('wall-health-bar').style.height='100%';
     document.getElementById('wall-health-text').textContent='100%';
     gameEnded=false; gameTime=90; spawnAllowed=true; finalBossSpawned=false;
-    init();
+    
 
     setTimeout(()=>{
       ov.remove();
       lbl2.remove();
     },700);
   };
+
+  btn.addEventListener('click', () => {
+    stage = 2;
+    init(); // ✅ Reset game với stage mới
+  });  
 }
 
 // cập nhật thanh máu của tường thành
@@ -698,6 +728,14 @@ function triggerVictoryUI(type){
   } else {
     resultImg.src = type==='victory' ? 'img/victory.png' : 'img/defeat.png';
     resultImg.style.display = 'block';
+    resultImg.style.display = 'block';
+    resultImg.style.position = 'absolute';
+    resultImg.style.left = '50%';
+    resultImg.style.top = '40%';
+    resultImg.style.transform = 'translate(-50%, -50%)';
+    resultImg.style.maxWidth = '60%';
+    resultImg.style.maxHeight = '30%';
+    resultImg.style.objectFit = 'contain';
   }
   if (type === 'victory') {
     if (soundEnabled) {
@@ -722,3 +760,109 @@ function clearAll(){
   bossBullets = [];
   if (player) { player.remove(); player = null; }
 }
+
+
+
+// ✅ Chỉ bắn khi nhấn/giữ nút #btn-fire
+let firing = false;
+let fireInterval;
+const fireButton = document.getElementById('btn-fire');
+
+if (fireButton) {
+  fireButton.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    firing = true;
+    shootPlayerBullet();
+    fireInterval = setInterval(shoot, 200);
+  });
+
+  fireButton.addEventListener('touchend', () => {
+    firing = false;
+    clearInterval(fireInterval);
+  });
+
+  fireButton.addEventListener('mousedown', () => {
+    firing = true;
+    shootPlayerBullet();
+    fireInterval = setInterval(shoot, 200);
+  });
+
+  fireButton.addEventListener('mouseup', () => {
+    firing = false;
+    clearInterval(fireInterval);
+  });
+}
+
+window.addEventListener('load', init);
+
+window.addEventListener('DOMContentLoaded', () => {
+  if (isMobile()) {
+    const joystickZone = document.getElementById('joystick-zone');
+    const base = document.getElementById('joystick-base');
+    const knob = document.getElementById('joystick-knob');
+
+    if (joystickZone && base && knob) {
+      joystickZone.style.display = 'block';
+
+      let knobActive = false;
+
+      base.addEventListener('touchstart', () => {
+        knobActive = true;
+      }, { passive: false });
+
+      base.addEventListener('touchmove', (e) => {
+        if (!knobActive) return;
+        const touch = e.touches[0];
+        const rect = base.getBoundingClientRect();
+        const dx = (touch.clientX - rect.left - rect.width / 2) / (rect.width / 2);
+        const dy = (touch.clientY - rect.top - rect.height / 2) / (rect.height / 2);
+
+        const clampedX = Math.max(-1, Math.min(1, dx));
+        const clampedY = Math.max(-1, Math.min(1, dy));
+
+        knob.style.left = `${35 + clampedX * 30}px`;
+        knob.style.top = `${35 + clampedY * 30}px`;
+
+        keys['w'] = clampedY < -0.4;
+        keys['s'] = clampedY > 0.4;
+        keys['a'] = clampedX < -0.4;
+        keys['d'] = clampedX > 0.4;
+      }, { passive: false });
+
+      base.addEventListener('touchend', () => {
+        knobActive = false;
+        knob.style.left = '35px';
+        knob.style.top = '35px';
+        keys['w'] = keys['a'] = keys['s'] = keys['d'] = false;
+      });
+    }
+  }
+});
+
+function startFiring() {
+  if (!firing && !fireInterval) {
+    firing = true;
+    shootPlayerBullet();
+    fireInterval = setInterval(shootPlayerBullet, FIRE_DELAY);
+  }
+}
+
+function stopFiring() {
+  firing = false;
+  clearInterval(fireInterval);
+  fireInterval = null;
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.code === 'Space') startFiring();
+});
+document.addEventListener('keyup', (e) => {
+  if (e.code === 'Space') stopFiring();
+});
+
+document.addEventListener('mousedown', (e) => {
+  if (!isMobile() && e.button === 0) startFiring();
+});
+document.addEventListener('mouseup', (e) => {
+  if (!isMobile() && e.button === 0) stopFiring();
+});
