@@ -16,10 +16,14 @@ Defend your wall against incoming enemies. Eliminate as many as possible, earn e
 
 🕹️ How to Play
 ---------------
-- Move: Use W A S D or Arrow Keys
-- Shoot: Click/Hold Left Click
 - Protect the wall at the left — if it's destroyed, you lose
 - Don't touch the enemy
+PC
+- Move: Use W A S D or Arrow Keys
+- Shoot: Click/Hold Left Click
+Phone:
+- Move: Virtual joystick navigation
+- Shoot: Press Shoot button
 
 💡 Features
 -----------
