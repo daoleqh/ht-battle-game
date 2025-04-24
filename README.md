@@ -12,7 +12,7 @@ Take command of your elite unit and protect your base against waves of powerful 
 
 🎯 Objective
 ------------
-Defend your wall against incoming enemies. Eliminate as many as possible, earn experience and level up. Survive until the final boss of each stage and defeat them to proceed.
+Defend your wall against incoming enemies. Eliminate as many as possible to claim exp and level up. Survive until the final boss of each stage and defeat them to proceed.
 
 🕹️ How to Play
 ---------------
@@ -56,7 +56,7 @@ Phone:
 
 💥 EXP System
 - +1 EXP or +2 EXP
-- Spawns randomly during game
+- Spawns randomly from defeating the enemies
 
 🧨 Hit Effects
 - Flash effect when bullets hit
