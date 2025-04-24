@@ -294,3 +294,16 @@ html.not-touch #btn-fire {
   transition: 0.1s;
   touch-action: none;
 }
+
+/* Container cho thanh HP của địch */
+.enemy-hp-container {
+  background: #333;
+  border: 1px solid #000;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.enemy-hp-container .enemy-hp-bar {
+  background: linear-gradient(to right, #ff5555, #ff0000);
+  transition: width 0.3s ease;
+}
