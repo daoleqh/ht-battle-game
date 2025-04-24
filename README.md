@@ -21,7 +21,7 @@ Defend your wall against incoming enemies. Eliminate as many as possible, earn e
 
 PC:
 - Move: Use W A S D or Arrow Keys
-- Shoot: Click/Hold Left Click
+- Shoot: Click/Hold Left Click/Space Bar
 
 Phone:
 - Move: Virtual joystick navigation
