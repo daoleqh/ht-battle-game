@@ -201,9 +201,22 @@ function spawnEnemy() {
   const e = document.createElement('div'); e.className = bossSmall ? 'boss' : 'enemy';
   Object.assign(e.style, {left:'1136px', top:`${y}px`, width:`${h}px`, height:`${h}px`, backgroundImage:`url('img/${ bossSmall ? (Math.random()<0.5 ? assetBoss1 : assetBoss2) : assetEnemy }')`});
   e.dataset.hp = e.dataset.maxHp = bossSmall ? 25 : 5;
-  const bar = document.createElement('div'); bar.className = 'enemy-hp-bar';
-  Object.assign(bar.style, {position:'absolute', top: bossSmall ? '-6px' : '-5px', height: bossSmall ? '6px' : '5px', width: '100%', backgroundColor: 'red'});
-  e.appendChild(bar);
+  const hpContainer = document.createElement('div');
+  hpContainer.className = 'enemy-hp-container';
+  Object.assign(hpContainer.style, {
+    position: 'absolute',
+    top:    '-10px',
+    width:  '100%',
+    height: '8px'
+  });
+  const hpFill = document.createElement('div');
+  hpFill.className = 'enemy-hp-bar';
+  Object.assign(hpFill.style, {
+    width:  '100%',
+    height: '100%'
+  });
+  hpContainer.appendChild(hpFill);
+  e.appendChild(hpContainer);
   const nameMap = {'enemy.png':'Gale RX','enemy2.png':'Angle BA-6','boss1.png':'AF Overlord','boss2.png':'Navy Overlord','boss3.png':'Gamma','boss4.png':'Delta','fboss.png':'Army Overlord','fboss2.png':'Super Mecha'};
   const src = e.style.backgroundImage.match(/url\(["']?(.*?)["']?\)/)[1].split('/').pop();
   const nm = nameMap[src] || '???';
@@ -220,9 +233,20 @@ function spawnFinalBoss() {
   const b = document.createElement('div'); b.className = 'boss';
   Object.assign(b.style, {left:'1136px', top:`${yCenter}px`, width:`${bossH}px`, height:`${bossH}px`, backgroundImage:`url('img/${assetFinalBoss}')`});
   b.dataset.hp = b.dataset.maxHp = 150;
-  const bar = document.createElement('div'); bar.className = 'enemy-hp-bar';
-  Object.assign(bar.style, {position:'absolute', top:'-8px', height:'6px', width:'100%', backgroundColor:'red'});
-  b.appendChild(bar);
+
+  const hpContainer = document.createElement('div');
+  hpContainer.className = 'enemy-hp-container';
+  Object.assign(hpContainer.style, {position: 'absolute', top: '-10px', width: '100%', height: '8px'});
+  const hpFill = document.createElement('div');
+  hpFill.className = 'enemy-hp-bar';
+  Object.assign(hpFill.style, {
+    width:  '100%',
+    height: '100%'
+  });
+
+  hpContainer.appendChild(hpFill);
+  b.appendChild(hpContainer);
+
   const nm = {'fboss.png':'Army Overlord','fboss2.png':'Super Mecha'}[assetFinalBoss] || '???';
   const nt = document.createElement('div'); nt.innerText = nm;
   Object.assign(nt.style, {position:'absolute', bottom:'-22px', left:'50%', transform:'translateX(-50%)', fontSize:'13px', fontFamily:"'Orbitron',sans-serif", background:'#300', color:'#ffaaaa', padding:'2px 6px', borderRadius:'6px', boxShadow:'0 0 5px red', fontWeight:'bold', whiteSpace:'nowrap', zIndex:5});
