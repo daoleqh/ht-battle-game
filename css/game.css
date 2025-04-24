@@ -39,7 +39,6 @@ html, body {
   box-shadow: 0 0 12px #0ff, 0 0 24px #0f0;
 }
 
-
 /* HUD */
 .hud-container {
   position: absolute;
@@ -81,7 +80,6 @@ html, body {
   background: rgba(0,255,255,0.2);
   color: #fff;
 }
-
 
 #sound-btn {
   display: block;
@@ -152,7 +150,7 @@ html, body {
   transition: height 0.3s ease;
 }
 
-/* Result image */
+/* ảnh kết quả */
 #result-img {
   display: none;
   position: absolute; left: 50%; top: 50%;
@@ -160,7 +158,7 @@ html, body {
   width: 360px; z-index: 30;
 }
 
-/* Explosion animation */
+/* hiệu ứng nổ */
 @keyframes explode {
   0% { transform: scale(0.5); opacity: 1; }
   100% { transform: scale(2); opacity: 0; }
@@ -225,13 +223,12 @@ html, body {
   }
 }
 
-/* ===== WRAPPER LAYOUT FIX TO AVOID CUT ON RIGHT ===== */
 #wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  overflow: hidden; /* ✅ Ngăn scroll ngang gây cắt bên phải */
+  overflow: hidden;
 }
 
 @media (max-width: 768px) and (orientation: landscape) {
@@ -266,7 +263,7 @@ html.not-touch #btn-fire {
   display: none;
 }
 
-/* 🎮 Joystick ảo */
+/* Joystick ảo */
 #joystick-zone {
   position: fixed;
   bottom: 24px;
